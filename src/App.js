@@ -32,9 +32,10 @@ class App extends React.Component{
   fetchProducts=(categ_id)=>{
     axios.get(`https://backend.ustraa.com/rest/V1/api/catalog/v1.0.1?category_id=${categ_id}`)
     .then(res => {
-      this.setState({
-        productList:res.data.products
-      });
+      this.setState(prevState=>({
+        productList:res.data.products,
+        categoryName:prevState.categoriesList.filter(data=>data.category_id==categ_id)[0].category_name
+      }));
     }).catch((err)=>{
       console.log(err);
     })
